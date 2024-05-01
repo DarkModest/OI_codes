@@ -6,15 +6,17 @@ using namespace std;
 signed main(){
     ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
-    int n, m;
-    int z = 0, c = 0;
-    cin >> n >> m;
+    int n;
+    int a[105];
+    int cnt = 0;
+    cin >> n;
     for(int i = 1; i <= n; i++){
-        for(int j = 1; j <= m; j++){
-            z += min(i, j);
-            c += i * j - min(i, j);
+        cin >> a[i];
+        cnt += a[i];
+        if(cnt >= 100) {
+            cout << i << endl;
+            break;
         }
     }
-    cout << z << " " << c << endl;
     return 0;
 }
