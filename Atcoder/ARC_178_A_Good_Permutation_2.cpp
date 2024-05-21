@@ -2,18 +2,17 @@
 using namespace std;
 #define int long long
 #define endl '\n'
+const int N = 2e5+5;
 
 signed main(){
     ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
-    int a[40005];
-    int x;
-    int cnt = 0;
-    while(cin >> x){
-        cnt++;
-        a[cnt] = x;
+    int n, m;
+    int a[]
+    cin >> n >> m;
+    for(int i = 1; i <= m; i++){
+        cin >> a[i];
     }
-    cout << sqrt(cnt) << " ";
     
     return 0;
 }
