@@ -6,14 +6,12 @@ using namespace std;
 signed main(){
     ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
-    int a[40005];
-    int x;
-    int cnt = 0;
-    while(cin >> x){
-        cnt++;
-        a[cnt] = x;
+    int x, y;
+    cin >> x >> y;
+    if((y - x) % 2 == 0){
+        cout << (y - x) / 2 << endl;
+    } else {
+        cout << (y - x) / 2 + 1 << endl;
     }
-    cout << sqrt(cnt) << " ";
-    
     return 0;
 }
