@@ -4,6 +4,7 @@ using namespace std;
 #define endl '\n'
 int n, k;
 vector<int> a;
+int ans = 1e9;
 
 signed main(){
     ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
@@ -15,8 +16,8 @@ signed main(){
         a.push_back(num);
     }
     sort(a.begin(), a.end());
-    int ans = 1e9;
-    for(int i = 0; i < k; i++){
+    
+    for(int i = 0; i <= k; i++){
         ans = min(ans, a[i + n - k - 1] - a[i]);
     }
     cout << ans << endl;
