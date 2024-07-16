@@ -19,22 +19,18 @@ signed main(){
     }
     if(suml <= 0 && sumr >= 0){
         cout << "Yes" << endl;
-        sum = suml;
-        bool ok = false;
+        int need = suml;
+        bool ok = 0;
         for(int i = 1; i <= n; i++){
-            if(!ok){
-                sum -= l[i];
-                sum += r[i];
-                if(sum <= 0){
-                    cout << r[i] << " ";
-                } else if (sum > 0){
-                    sum -= r[i];
-                    sum += l[i];
-                    cout << -sum << " ";
-                    ok = true;
-                }
-            } else {
+            if(need - l[i] + r[i] < 0 && !ok){
+                need = need - l[i] + r[i];
+                cout << r[i] << " ";
+                //cout << endl << "need = " << need << endl;
+            } else if(ok){
                 cout << l[i] << " ";
+            } else {
+                ok = 1;
+                cout << l[i] - need << " ";
             }
         }
     } else cout << "No" << endl;

@@ -6,14 +6,13 @@ using namespace std;
 signed main(){
     ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
-    int n;
-    cin >> n;
-    int a[85];
-    for(int i = 1; i <= n; i++) cin >> a[i];
-    for(int i = 1; i <= n; i++){
-        for(int j = 1; j <= i; j++){
-            
-        }
+    int cases;
+    cin >> cases;
+
+    for(int ii = 1; ii <= cases; ii++){
+        int n, k;
+        cin >> n >> k;
+        cout << (n + k - 3) / (k - 1) << endl;
     }
     return 0;
 }
