@@ -17,6 +17,7 @@ signed main(){
         for(int i = 1; i <= c - 1; i++){
             a[i] = i;
             b[i] = i;
+            if(a[i] == x && b[i] == y) a[i]++;
             suma[i] = suma[i - 1] + a[i];
             sumb[i] = sumb[i - 1] + b[i];
             cout << a[i] << " " << b[i] << endl;
