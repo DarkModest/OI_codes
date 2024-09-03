@@ -42,7 +42,7 @@ void addtag(int p, int K, int D){
 }
 void pushdown(int p){
 	addtag(ls(p), t[p].ktag, t[p].dtag);
-    addtag(rs(p), t[p].ktag, t[p].dtag);
+    addtag(rs(p), t[p].ktag+(t[ls(p)].r-t[p].l+1)*t[p].dtag, t[p].dtag);
     t[p].ktag = t[p].dtag = 0;
 }
 void update(int ql, int qr, int p, int K, int D){
@@ -54,7 +54,9 @@ void update(int ql, int qr, int p, int K, int D){
     //addtag(p, K, D);
     pushdown(p);
     if(ql <= mid) update(ql, qr, ls(p), K, D);
-    if(mid + 1 <= qr) update(ql, qr, rs(p), K, D);
+    if(mid + 1 <= qr && ql < t[p].l) update(ql, qr, rs(p), K + (mid + 1 - t[p].l) * D, D);
+    else if(mid + 1 <= qr && ql >= t[rs(p)].l) update(ql, qr, rs(p), K, D);
+    else if(mid + 1 <= qr) update(ql, qr, rs(p), K + (mid + 1 - ql) * D, D);
     pushup(p);
 }
 int query(int ql, int qr, int p){
