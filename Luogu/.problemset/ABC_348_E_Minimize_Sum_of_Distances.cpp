@@ -2,9 +2,7 @@
 using namespace std;
 #define int long long
 #define endl '\n'
-const int N = 105;
-int n;
-int a[N];
+const int N = 1e5 + 5;
 struct EDGE{
     int nxt, to;
 } e[N << 1];
@@ -18,48 +16,45 @@ void uadd(int u, int v){
     add(u, v);
     add(v, u);
 }
-int dis[N];
+int n, a[N];
 int dep[N];
-int dp[N];
-int ans;
+int siz[N];
+int ans[N];
+int minn = 1e19;
 void dfs(int u, int fa){
-    dep[u] = dep[fa] + 1;
+    ans[1] += dep[u] * a[u];
+    siz[u] = a[u];
     for(int i = head[u]; i; i = e[i].nxt){
         int to = e[i].to;
         if(to == fa) continue;
+        dep[to] = dep[u] + 1;
         dfs(to, u);
-        dis[u] += dis[to];
+        siz[u] += siz[to];
     }
 }
 void dfs2(int u, int fa){
     for(int i = head[u]; i; i = e[i].nxt){
         int to = e[i].to;
         if(to == fa) continue;
-        dp[to] = dp[u] - dis[to] + (dis[1] - dis[to]);
+        ans[to] = ans[u] - siz[to] + (siz[1] - siz[to]);
         dfs2(to, u);
     }
 }
 signed main(){
     ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+
     cin >> n;
-    for(int i = 1; i <= n; i++){
-        int w, u, v;
-        cin >> w >> u >> v;
-        a[i] = w;
-        dis[i] = a[i];
-        if(u)uadd(i, u);
-        if(v)uadd(i, v);
+    for(int i = 1; i < n; i++){
+        int u, v;
+        cin >> u >> v;
+        uadd(u, v);
     }
-    dfs(1, 0);
     for(int i = 1; i <= n; i++)
-        dp[1] += a[i] * (dep[i] - 1);
-    ans = dp[1];
+        cin >> a[i];
+    dfs(1, 0);
     dfs2(1, 0);
     for(int i = 1; i <= n; i++)
-        if(dp[i])ans = min(ans, dp[i]);
-    // for(int i = 1; i <= n; i++) cout << dis[i] << " "; cout << endl;
-    // for(int i = 1; i <= n; i++) cout << dep[i] << " "; cout << endl;
-    //for(int i = 1; i <= n; i++) cout << dp[i] << endl;
-    cout << ans << endl;
+        minn = min(minn, ans[i]);
+    cout << minn << endl;
     return 0;
 }
