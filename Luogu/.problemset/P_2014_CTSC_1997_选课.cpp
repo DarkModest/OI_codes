@@ -2,43 +2,37 @@
 using namespace std;
 #define int long long
 #define endl '\n'
-const int N = 1005;
-int n, m;
-struct EDGE{
+const int N = 305;
+struct edge{
     int nxt, to;
-} e[N];
+} e[N << 1];
 int head[N], ecnt;
 void add(int u, int v){
     e[++ecnt].nxt = head[u];
     e[ecnt].to = v;
     head[u] = ecnt;
 }
-void uadd(int u, int v){
-    add(u, v);
-    add(v, u);
-}
-
-int dp[N];
-int s[N];
-void dfs(int u, int fa){
-    for(int i = head[u]; i; i = e[i].nxt){
-        int to = e[i].to;
-        if(to == fa) continue;
-        dfs(to, u);
-        d = max(d, dp[u] + dp[to] + 1);
-        dp[u] = max(dp[u], dp[to] + 1);
-    }
+int n, m, a[N];
+int dp[N][N];
+void dfs(int u){
+    dp[u][1] = a[u];
+    for(int i = head[u]; i; i = e[i].nxt)
+        dfs(e[i].to);
+    for(int i = head[u]; i; i = e[i].nxt)
+        for(int j = m, to = e[i].to; j > 0; j--)
+            for(int k = 0; k < j; k++)
+                dp[u][j] = max(dp[u][j], dp[u][j - k] + dp[to][k]);
 }
 signed main(){
     ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
     cin >> n >> m;
-    for(int i = 1; i <= n; i++){
-        cin >> s[i];
-        int k;
-        cin >> k;
-        if(k) uadd(i, k);
+    m++;
+    for(int i = 1, s, k; i <= n; i++){
+        cin >> k >> s;
+        add(k, i);
+        a[i] = s;
     }
-    dfs(1, 0);
-    
+    dfs(0);
+    cout << dp[0][m] << endl;
     return 0;
 }
